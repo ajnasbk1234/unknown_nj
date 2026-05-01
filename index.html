@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Najmul</title>
+
+<style>
+body {
+  background-image: url("download (3).jfif");
+  background-size: cover;
+  font-family: Arial, sans-serif;
+}
+   /* Navbar container */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        /* Menu links */
+        .navbar a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        /* Hover effect */
+        .navbar a:hover {
+           background: linear-gradient(45deg, purple, blue);
+        }
+/* Text styling */
+h1{
+  color: blueviolet;
+  font-size: 23px;
+}
+h2{
+  color: blueviolet;
+  font-size: 23px;
+}
+p{
+  color: blueviolet;
+  font-size: 23px;
+}
+ ul {
+  color: blueviolet;
+  font-size: 23px;
+}
+/* Animation */
+@keyframes FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.navbar{
+  animation: FadeIn 2s ease-in;
+}
+h1{
+  animation: FadeIn 2s ease-in;
+}
+ h2 {
+  animation: FadeIn 2s ease-in;
+}p {
+  animation: FadeIn 2s ease-in;
+}ul{
+  animation: FadeIn 2s ease-in;
+} img{
+  animation: FadeIn 2s ease-in;
+}
+button {
+  animation: FadeIn 2s ease-in;
+}
+
+/* Button styling */
+button {
+  background: linear-gradient(45deg, purple, blue);
+  color: white;
+  width: 140px;
+  height: 50px;
+  border: 2px solid cyan;
+  border-radius: 10px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+button:hover {
+  background: linear-gradient(45deg, red, orange);
+  box-shadow: 0 0 15px cyan;
+  color: cyan;
+  transform: scale(1.05);
+}
+
+/* Images */
+img {
+  width: 150px;
+  margin: 5px;
+  border-radius: 10px;
+}
+</style>
+
+</head>
+
+<body>
+<div class="navbar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="service.html">Services</a>
+    <a href="contact .html">Contact</a>
+    <a href="texter.html">game</a>
+</div>
+<form action="menu.html">
+  <button type="submit">Return</button>
+</form>
+
+<h1>Hi I'm Najmul</h1>
+<h2>Welcome to my website</h2>
+
+<p>Hi I'm Najmul, I am a student in Darunnajath Islamic Complex</p>
+
+<h2>My ambition</h2>
+
+<img src="download (1).jfif">
+<img src="download (2).jfif">
+<img src="download.jfif">
+
+<ul>
+  <li>Scientist</li>
+  <li>Novelist</li>
+  <li>Web Designer</li>
+</ul>
+
+<h2>Email</h2>
+
+<form action="sign in.html">
+  <label>Email:</label><br>
+  <input type="email"><br>
+
+  <label>Password:</label><br>
+  <input type="password"><br>
+
+  <button type="submit">Submit</button>
+</form>
+
+<hr>
+<button onclick="changeBg()">Change Background</button>
+
+<script>
+let originalBg = getComputedStyle(document.body).backgroundColor;
+
+let items = [
+  { type: "color", value: "red" },
+  { type: "color", value: "purple" },
+  { type: "color", value: "blue" },
+  { type: "image", value: "download (3).jfif" }
+];
+
+let i = 0;
+
+function changeBg() {
+  if (i < items.length) {
+    if (items[i].type === "color") {
+      document.body.style.backgroundImage = "none";
+      document.body.style.backgroundColor = items[i].value;
+    } else {
+      document.body.style.backgroundImage = "url('" + items[i].value + "')";
+      document.body.style.backgroundSize = "cover";
+      document.body.style.backgroundPosition = "center";
+    }
+  } else {
+    // back to original
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundColor = originalBg;
+  }
+
+  i = (i + 1) % (items.length + 1);
+}
+</script>
+
+<button onclick="window.location.href='https://youtube.com'">YouTube</button>
+
+<form action="samurai.html">
+  <button type="submit">Go to my Samurai website</button>
+</form>
+
+<form action="b.html">
+  <button type="submit">Go to my business</button>
+</form>
+
+<a href="https://vortexbk.github.io/vortex_bk/">Visit Aazim's website</a>
+
+</body>
+</html>

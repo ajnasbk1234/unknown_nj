@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pro Shooting Game</title>
+<style>
+body{
+  margin:0;
+  background:#1b1b1b;
+  overflow:hidden;
+  font-family:sans-serif;
+}
+
+/* PLAYER */
+.player{
+  width:40px;
+  height:40px;
+  background:#00ff88;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  box-shadow:0 0 15px #00ff88;
+}
+
+/* HEXAGON ENEMY */
+.enemy{
+  width:40px;
+  height:22px;
+  background:#ff3b3b;
+  position:absolute;
+}
+.enemy:before,
+.enemy:after{
+  content:"";
+  position:absolute;
+  width:0;
+  border-left:20px solid transparent;
+  border-right:20px solid transparent;
+}
+.enemy:before{
+  bottom:100%;
+  border-bottom:11px solid #ff3b3b;
+}
+.enemy:after{
+  top:100%;
+  border-top:11px solid #ff3b3b;
+}
+
+/* BULLET */
+.bullet{
+  width:6px;
+  height:6px;
+  background:#ffd700;
+  position:absolute;
+  border-radius:50%;
+  box-shadow:0 0 10px #ffd700;
+}
+
+/* HEALTH BAR */
+.health-container{
+  position:absolute;
+  top:5px;
+  left:15px;
+  width:200px;
+  height:20px;
+  background:#222;
+  border-radius:10px;
+  overflow:hidden;
+}
+.health{
+  height:100%;
+  width:100%;
+  background:linear-gradient(90deg,#00ff88,#00cc66);
+  transition:0.3s;
+}
+
+/* EXPLOSION */
+.explosion{
+  position:absolute;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:radial-gradient(circle, #fff, orange, red, transparent);
+  animation:explode 0.4s ease-out forwards;
+}
+@keyframes explode{
+  from{transform:scale(0.5); opacity:1;}
+  to{transform:scale(2); opacity:0;}
+}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar container */
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        /* Menu links */
+        .navbar a {
+            float: left;
+            display: flex;
+            color: white;
+            text-align: left;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        /* Hover effect */
+        .navbar a:hover {
+           background: linear-gradient(45deg, purple, blue);
+        }
+</style>
+</head>
+<body>
+  
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="service.html">Services</a>
+  <a href="contact.html">Contact</a>
+  <a href="texter.html">game</a>
+</div>
+  <h1>welcom to my game</h1>
+
+<div class="player" id="player"></div>
+
+<div class="health-container">
+  <div class="health" id="health"></div>
+</div>
+
+<script>
+let player = document.getElementById("player");
+let healthBar = document.getElementById("health");
+
+let px = window.innerWidth/2;
+let py = window.innerHeight/2;
+
+let bullets = [];
+let enemies = [];
+let health = 100;
+
+/* MOVEMENT */
+let keys = {};
+document.addEventListener("keydown", e=>keys[e.key]=true);
+document.addEventListener("keyup", e=>keys[e.key]=false);
+
+/* SHOOT ON CLICK */
+document.addEventListener("click", e=>{
+  let b = document.createElement("div");
+  b.className="bullet";
+
+  let angle = Math.atan2(e.clientY - py, e.clientX - px);
+
+  b.x = px;
+  b.y = py;
+  b.dx = Math.cos(angle)*8;
+  b.dy = Math.sin(angle)*8;
+
+  b.style.left = px+"px";
+  b.style.top = py+"px";
+
+  document.body.appendChild(b);
+  bullets.push(b);
+});
+
+/* CREATE ENEMIES */
+setInterval(()=>{
+  let e = document.createElement("div");
+  e.className="enemy";
+
+  e.x = Math.random()*window.innerWidth;
+  e.y = Math.random()*window.innerHeight;
+
+  e.style.left = e.x+"px";
+  e.style.top = e.y+"px";
+
+  document.body.appendChild(e);
+  enemies.push(e);
+},1200);
+
+/* EXPLOSION */
+function explode(x,y){
+  let ex = document.createElement("div");
+  ex.className="explosion";
+  ex.style.left = x+"px";
+  ex.style.top = y+"px";
+  document.body.appendChild(ex);
+
+  setTimeout(()=>ex.remove(),400);
+}
+
+/* GAME LOOP */
+setInterval(()=>{
+
+  /* PLAYER MOVE */
+  if(keys["ArrowLeft"] || keys["a"]) px-=5;
+  if(keys["ArrowRight"] || keys["d"]) px+=5;
+  if(keys["ArrowUp"] || keys["w"]) py-=5;
+  if(keys["ArrowDown"] || keys["s"]) py+=5;
+
+  player.style.left = px+"px";
+  player.style.top = py+"px";
+
+  /* BULLETS */
+  bullets.forEach((b,bi)=>{
+    b.x += b.dx;
+    b.y += b.dy;
+
+    b.style.left = b.x+"px";
+    b.style.top = b.y+"px";
+
+    if(b.x<0||b.y<0||b.x>window.innerWidth||b.y>window.innerHeight){
+      b.remove();
+      bullets.splice(bi,1);
+    }
+  });
+
+  /* ENEMIES */
+  enemies.forEach((e,ei)=>{
+
+    /* MOVE TOWARD PLAYER */
+    let angle = Math.atan2(py - e.y, px - e.x);
+    e.x += Math.cos(angle)*2;
+    e.y += Math.sin(angle)*2;
+
+    e.style.left = e.x+"px";
+    e.style.top = e.y+"px";
+
+    /* COLLISION WITH PLAYER */
+    if(Math.abs(e.x - px) < 30 && Math.abs(e.y - py) < 30){
+      explode(px,py);
+      health -= 5;
+      healthBar.style.width = health+"%";
+
+      e.remove();
+      enemies.splice(ei,1);
+
+      if(health <= 0){
+        alert("Game Over");
+        location.reload();
+      }
+    }
+
+    /* BULLET HIT */
+    bullets.forEach((b,bi)=>{
+      if(Math.abs(b.x - e.x) < 20 && Math.abs(b.y - e.y) < 20){
+        explode(e.x,e.y);
+
+        e.remove();
+        b.remove();
+
+        enemies.splice(ei,1);
+        bullets.splice(bi,1);
+      }
+    });
+
+  });
+
+},30);
+</script>
+
+</body>
+</html>

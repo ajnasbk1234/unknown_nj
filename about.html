@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Me</title>
+
+<style>
+
+/* Background image */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-image: url("download (3).jfif");
+  background-size: cover;
+  background-position: center;
+}
+
+/* Animation */
+@keyframes FadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Apply animation */
+.navbar, h1, p, button {
+  animation: FadeIn 2s ease-in;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+.navbar a {
+  float: left;
+  color: white;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background: linear-gradient(45deg, purple, blue);
+}
+
+/* Text */
+h1 {
+  color: blueviolet;
+}
+
+p {
+  color: blueviolet;
+  font-size: 23px;
+}
+
+/* Buttons */
+button {
+  background: linear-gradient(45deg, purple, blue);
+  color: white;
+  width: 160px;
+  height: 50px;
+  border: 2px solid cyan;
+  border-radius: 10px;
+  transition: 0.3s;
+  margin: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: linear-gradient(45deg, red, orange);
+  box-shadow: 0 0 15px cyan, 0 0 30px cyan;
+  color: cyan;
+  transform: scale(1.05);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="service.html">Services</a>
+  <a href="contact.html">Contact</a>
+  <a href="texter.html">game</a>
+</div>
+
+<h1>I am Najmul</h1>
+<p>Hi, I'm Najmul. I am a student in Darunnajath Islamic Complex.</p>
+
+<form action="menu.html">
+  <button type="submit">Return</button>
+</form>
+
+<form action="samurai.html">
+  <button type="submit">Samurai Website</button>
+</form>
+
+</body>
+</html>
